@@ -1,0 +1,32 @@
+= CouchRest Localised Properties
+
+Localise your CouchRest Model properties as if by magic!
+
+== Introduction
+
+Storing translations of data is always a difficult problem. 
+
+CouchRest Localised Properties works by overwriting the normal attribute getters and setters with special localised versions that will magically replace the attribute with a hash. For each locale supported by your application there will be a key in the hash to store the real value. This approach allows you to apply any typecasting to the value being read as if you were working in just one locale.
+
+While getting and setting values is quite considerably easier, you'll still need to write your view methods manually. It is not however recommended that your perform many queries this way.
+
+== Updates
+
+=== v0.1 - 25th March 2011
+
+ - First release
+
+
+== Todos / Bugs
+
+
+== License
+
+Copyright (c) 2011 Samuel Lown <me (AT) samlown.com>
+
+This Plugin is released under the MIT license, as Rails itself. Please see the 
+attached LICENSE file for further details.
+
+This document and plugin should be considered a work in progress until further
+notice!
+
