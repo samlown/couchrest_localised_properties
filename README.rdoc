@@ -19,8 +19,25 @@ While getting and setting values is quite considerably easier, you'll still need
       property :published_at, DateTime
     end
 
+    # set language to english and set title
+    I18n.default_locale = :en
+    I18n.locale = :en
     @a = Article.new
-    
+    @a.title = "Test Title"
+
+    # language changed to spanish:
+    I18n.locale = :es
+    # returns default text as no translation set
+    @a.title == "Test Title"  # true
+
+    # set the title for spanish
+    @a.title = "Título de prueba"
+
+    # Have a look at the raw data
+    @a['title'] == {
+      'en' => "Test Title",
+      'es' => "Título de prueba"
+    }
 
 == Updates
 
