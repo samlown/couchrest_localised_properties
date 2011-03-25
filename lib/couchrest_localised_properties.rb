@@ -2,6 +2,8 @@
 # CouchRest Localised Properties
 #
 
+require 'couchrest_model'
+
 module CouchRest
   module LocalisedProperties
 

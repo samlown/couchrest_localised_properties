@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_dependency("couchrest_model", "~> 1.1.0.beta")
-  s.add_development_dependency(%q<rspec>, "~> 1.2.0")
+  s.add_dependency("i18n", "> 0.3.0")
+  s.add_development_dependency(%q<rspec>, ">= 2.0.0")
 end
 

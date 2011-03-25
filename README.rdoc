@@ -8,7 +8,19 @@ Storing translations of data is always a difficult problem.
 
 CouchRest Localised Properties works by overwriting the normal attribute getters and setters with special localised versions that will magically replace the attribute with a hash. For each locale supported by your application there will be a key in the hash to store the real value. This approach allows you to apply any typecasting to the value being read as if you were working in just one locale.
 
-While getting and setting values is quite considerably easier, you'll still need to write your view methods manually. It is not however recommended that your perform many queries this way.
+While getting and setting values is quite considerably easier, you'll still need to write your view methods manually.
+
+== Basic Usage
+
+    class Article < CouchRest::Model::Base
+      localised_property :title, String
+      localised_property :content, String
+
+      property :published_at, DateTime
+    end
+
+    @a = Article.new
+    
 
 == Updates
 
@@ -16,9 +28,9 @@ While getting and setting values is quite considerably easier, you'll still need
 
  - First release
 
-
 == Todos / Bugs
 
+ - Please let me know!
 
 == License
 
