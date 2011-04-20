@@ -5,6 +5,7 @@ require File.expand_path('../../spec_helper', __FILE__)
 class BasicLP < CouchRest::Model::Base
   use_database DB
   localised_property :title, String
+  localised_property :popularity, Float
   property :posted_at, DateTime
 end
 
@@ -56,22 +57,28 @@ describe "CouchRest LocalisedProperties" do
         @obj['title']['en'].should eql('Sample Title')
       end
 
+      it "should call dirty tracking to register the change" do
+        @obj.should_receive(:couchrest_attribute_will_change!).with('title')
+        @obj.write_localised_attribute('title', "Sample Title")
+      end
+
+      it "should mark record as changed when translation set" do
+        @obj.changed?.should be_false
+        @obj.title = 'New Title'
+        @obj.title_changed?.should be_true
+        @obj.changed?.should be_true
+      end
+
       describe "with casting" do
-        before :each do
-          @prop = mock('Property')
-          @prop.should_receive(:to_s).and_return('title')
-          @prop.should_receive(:cast).and_return('the title')
-          @obj.should_receive(:find_property!).and_return(@prop)
-        end
         it "should perform type casting on normal write" do
-          @prop.should_receive(:is_a?).and_return(false)
           I18n.locale = 'en'
-          @obj.write_localised_attribute('title', 'something')
-          @obj['title']['en'].should eql('the title')
+          amount = '32'
+          @obj.write_localised_attribute('popularity', amount)
+          @obj['popularity']['en'].should eql(32.0)
         end
         it "should perform casting on each key when hash sent" do
-          @prop.should_receive(:cast).and_return('the title') # second time
-          @obj.write_localised_attribute('title', {'en' => 'title', 'es' => 'título'})
+          @obj.write_localised_attribute('popularity', {'en' => '23', 'es' => '32'})
+          @obj['popularity']['es'].should eql(32.0)
         end
       end
     end
