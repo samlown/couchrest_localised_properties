@@ -23,8 +23,10 @@ module CouchRest
           self[key][k] = prop.cast(self, v)
         end
       else
+        value = prop.is_a?(String) ? value : prop.cast(self, value)
+        attribute_will_change!(prop.to_s) if use_dirty? && self[prop.to_s] != value
         self[key] ||= { }
-        self[key][I18n.locale.to_s] = prop.is_a?(String) ? value : prop.cast(self, value)
+        self[key][I18n.locale.to_s] = value
       end
     end
 
